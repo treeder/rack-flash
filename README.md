@@ -1,3 +1,16 @@
+# Patch the Call to rack_builder
+
+
+Treeder forked the original Rack::Flash and patched its issues, see 
+https://github.com/treeder/rack-flash
+
+However, when *not* using Sinatra, the code still won't work.
+This patches that in the Patch_rack_builder_call branch.
+
+[View the RDoc](http://gitrdoc.com/nakajima/rack-flash/tree/master).
+Below is the original README.md
+----
+
 # Rack Flash
 
     flash[:notice] = "You can stop rolling your own now."
