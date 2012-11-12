@@ -131,8 +131,7 @@ module Rack
     def app_class(app, opts)
       return nil if opts.has_key?(:helper) and not opts[:helper]
       opts[:flash_app_class] ||
-        defined?(Sinatra::Base) && Sinatra::Base ||
-        self.class.rack_builder.leaf_app.class
+        defined?(Sinatra::Base) && Sinatra::Base
     end
   end
 end
