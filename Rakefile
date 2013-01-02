@@ -8,7 +8,7 @@ begin
     gem.summary = "Flash hash implementation for Rack apps."
     gem.description = "Flash hash implementation for Rack apps."
     gem.email = "treeder@gmail.com"
-    gem.homepage = "http://www.iron.io"
+    gem.homepage = "https://github.com/treeder/rack-flash"
     gem.authors = ["Pat Nakajima", "Travis Reeder"]
     gem.add_dependency 'rack'
     # gem.required_ruby_version = '>= 1.9'
