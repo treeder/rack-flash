@@ -48,6 +48,10 @@ module Rack
       end
       alias_method :include?, :has?
 
+      def keys
+        cache.keys.merge(values.keys)
+      end
+
       # Mark existing entries to allow for sweeping.
       def flag!
         @flagged = values.keys
