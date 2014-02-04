@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/helper'
 
 describe 'Rack::Flash' do
-  include Rack::Test::Methods
+  extend Rack::Test::Methods
 
   def app(&block)
     return Sinatra.new &block
@@ -25,6 +25,14 @@ describe 'Rack::Flash' do
   it 'accepts strings or hashes' do
     new_flash[:foo] = 'bar'
     new_flash['foo'].should.equal('bar')
+  end
+  
+  it 'has an each method' do
+    new_flash[:foo]  = 'bar'
+    new_flash[:fizz] = 'buzz'
+    new_flash.each do |k,v|
+      k == :foo ? v.should.equal('bar') : v.should.equal('buzz')
+    end
   end
 
   it 'deletes entries from session after retrieval' do
@@ -74,7 +82,7 @@ describe 'Rack::Flash' do
     flash = new_flash
     flash[:foo] = 'bar'
     @fake_session.clear
-    flash['foo'].should.equal(nil)
+    flash[:foo].should.equal('bar')
   end
 
   describe 'accessorize option' do
@@ -132,8 +140,13 @@ describe 'Rack::Flash' do
   end
 
   describe 'integration' do
+
+    def app(&block)
+      return Sinatra.new &block
+    end
+
     it 'provides :sweep option to clear unused entries' do
-      app {
+      app do
         use Rack::Flash, :sweep => true
 
         set :sessions, true
@@ -141,7 +154,7 @@ describe 'Rack::Flash' do
         get '/' do
           'ok'
         end
-      }
+      end
 
       fake_flash = Rack::FakeFlash.new(:foo => 'bar')
 

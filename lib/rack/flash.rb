@@ -34,6 +34,13 @@ module Rack
         cache[key] = values[key] = val
       end
 
+      # Mimic the each function of a normal hash for the flash values
+      def each(&block)
+        cache.merge! values
+        values = {}
+        cache.each(&block)
+      end
+
       # Store a flash entry for only the current request, swept regardless of
       # whether or not it was actually accessed. Useful for AJAX requests, where
       # you want a flash message, even though you're response isn't redirecting.
